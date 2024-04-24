@@ -12,11 +12,6 @@ export class UserEntity extends BaseEntity {
 
   @IsString()
   @Column({ unique: true })
-  @ApiProperty({ required: true, example: 'rwXBcj4KW9cYCkFsp1rj1dlV13U2' })
-  uid: string;
-
-  @IsString()
-  @Column({ unique: true })
   @ApiProperty({ required: true, example: 'user@example.com' })
   email: string;
 
