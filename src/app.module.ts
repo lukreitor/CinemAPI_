@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmConfig } from './config/database';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MovieModule } from './movie/movie.module';
@@ -9,16 +10,7 @@ import { DirectorModule } from './director/director.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5433,
-      username: 'postgres',
-      password: 'root',
-      database: 'movie_catalog',
-      autoLoadEntities: true,
-      synchronize: true, // WARNING: Desabilitar em produção!
-    }),
+    TypeOrmModule.forRoot(TypeOrmConfig()),
     MovieModule,
     UserModule,
     GenreModule,
