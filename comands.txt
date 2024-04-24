@@ -1,0 +1,2 @@
+docker run --name redis-server -d -p 6379:6379 redis
+docker run --name postgres-db2 -e POSTGRES_PASSWORD=root -d -p 5433:5432 postgres
