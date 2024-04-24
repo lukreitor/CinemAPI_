@@ -1,10 +1,7 @@
-import { NestFactory } from '@nestjs/core';
+import { INestApplication } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { AppModule } from './app.module';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-
+export function setupSwagger(app: INestApplication) {
   const options = new DocumentBuilder()
     .setTitle('Movie Catalog API Documentation')
     .setDescription('API description')
@@ -16,7 +13,4 @@ async function bootstrap() {
       persistAuthorization: true,
     },
   });
-
-  await app.listen(3000);
 }
-bootstrap();
