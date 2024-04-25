@@ -1,4 +1,8 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { UserEntity } from 'src/user/entities/User.entity';
+import { ProfileEntity } from 'src/user/entities/Profile.entity';
+import { BaseEntity } from 'src/entities/base.entity';
+import { MovieModule } from 'src/movie/movie.module';
 
 export const TypeOrmConfig = () =>
   ({
@@ -10,12 +14,6 @@ export const TypeOrmConfig = () =>
     database: 'movie_catalog',
     autoLoadEntities: true,
     synchronize: true, // WARNING: Desabilitar em produção!
-    logging: true,
-    entities: [
-      'dist/src/entities/*.entity.js',
-      'dist/director/entities/*.entity.js',
-      'dist/genre/entities/*.entity.js',
-      'dist/movie/entities/*.entity.js',
-      'dist/user/entities/*.entity.js',
-    ],
+    logging: false,
+    entities: [BaseEntity, ProfileEntity, 'dist/src/entities/*.entity.js'],
   }) as TypeOrmModuleOptions;

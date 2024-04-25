@@ -1,8 +1,9 @@
-import { Entity, Column, OneToOne } from 'typeorm';
+import { Entity, Column, OneToOne, JoinColumn, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../entities/base.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsBoolean, IsOptional } from 'class-validator';
 import { ProfileEntity } from './profile.entity';
+import { Movie } from 'src/movie/entities/movie.entity';
 
 @Entity('users')
 export class UserEntity extends BaseEntity {
@@ -14,6 +15,11 @@ export class UserEntity extends BaseEntity {
   @Column({ unique: true })
   @ApiProperty({ required: true, example: 'user@example.com' })
   email: string;
+
+  @IsString()
+  @Column()
+  @ApiProperty({ required: true, example: 'password' })
+  password: string;
 
   @IsOptional()
   @IsString()
@@ -39,6 +45,10 @@ export class UserEntity extends BaseEntity {
   @ApiProperty({ required: false, example: false })
   isAdmin?: boolean = false;
 
+  @OneToMany(() => Movie, (movie) => movie.user)
+  movies: Movie[];
+
   @OneToOne(() => ProfileEntity, (profile) => profile.user)
-  profile?: ProfileEntity;
+  @JoinColumn()
+  profile: ProfileEntity;
 }

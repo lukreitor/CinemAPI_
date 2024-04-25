@@ -1,2 +1,10 @@
 docker run --name redis-server -d -p 6379:6379 redis
 docker run --name postgres-db2 -e POSTGRES_PASSWORD=root -d -p 5433:5432 postgres
+
+docker exec -it 0aca6649b71720a8e9f20eeaf5101959ef6bb1bf51fadfc4c2fd7775ac965a03 bash
+
+psql -U postgres -d movie_catalog
+
+\dt
+
+\d+ <users>
