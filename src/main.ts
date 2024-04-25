@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { AllExceptionsFilter } from './exceptions/AllExceptionFilter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,7 +17,7 @@ async function bootstrap() {
       persistAuthorization: true,
     },
   });
-
+  app.useGlobalFilters(new AllExceptionsFilter());
   await app.listen(3000);
 }
 bootstrap();

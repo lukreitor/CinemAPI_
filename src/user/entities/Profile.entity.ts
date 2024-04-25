@@ -122,11 +122,4 @@ export class ProfileEntity extends BaseEntity {
   })
   @Column()
   telephone: string;
-
-  @ApiProperty({
-    required: true,
-  })
-  @OneToOne(() => UserEntity, (user) => user.profile)
-  @JoinColumn()
-  user: UserEntity;
 }
