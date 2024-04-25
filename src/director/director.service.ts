@@ -1,26 +1,51 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateDirectorDto } from './dto/create-director.dto';
 import { UpdateDirectorDto } from './dto/update-director.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Director } from './entities/director.entity';
 
 @Injectable()
 export class DirectorService {
-  create(createDirectorDto: CreateDirectorDto) {
-    return 'This action adds a new director';
-  }
+  constructor(
+    @InjectRepository(Director)
+    private directorRepository: Repository<Director>,
+  ) {}
 
   findAll() {
-    return `This action returns all director`;
+    return this.directorRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} director`;
+  async findOne(id: string) {
+    const director = await this.directorRepository.findOne({ where: { id } });
+    if (!director) {
+      throw new NotFoundException('Director not found');
+    }
+    return director;
   }
 
-  update(id: number, updateDirectorDto: UpdateDirectorDto) {
-    return `This action updates a #${id} director`;
+  async update(id: string, updateDirectorDto: UpdateDirectorDto) {
+    const director = await this.directorRepository.findOne({ where: { id } });
+    if (!director) {
+      throw new Error('Director not found');
+    }
+    Object.assign(director, updateDirectorDto);
+    return this.directorRepository.save(director);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} director`;
+  async remove(id: string) {
+    const director = await this.directorRepository.findOne({ where: { id } });
+    if (!director) {
+      throw new Error('Director not found');
+    }
+    return this.directorRepository.remove(director);
+  }
+
+  async createDirector(
+    createDirectorDto: CreateDirectorDto,
+  ): Promise<Director> {
+    const director = new Director();
+    Object.assign(director, createDirectorDto);
+    return this.directorRepository.save(director);
   }
 }

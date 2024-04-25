@@ -1,4 +1,4 @@
-import { Entity, Column, ManyToMany } from 'typeorm';
+import { Entity, Column, ManyToMany, JoinTable, ManyToOne } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsString,
@@ -10,6 +10,7 @@ import {
 import { Genre } from '../../genre/entities/genre.entity';
 import { Director } from '../../director/entities/director.entity';
 import { BaseEntity } from '../../entities/base.entity';
+import { UserEntity } from '../../user/entities/user.entity';
 
 @Entity()
 export class Movie extends BaseEntity {
@@ -52,12 +53,16 @@ export class Movie extends BaseEntity {
   coverImageUrl?: string;
 
   @IsArray()
-  @ManyToMany(() => Genre)
+  @ManyToMany(() => Genre, (genre) => genre.movies)
+  @JoinTable()
   @ApiProperty({ required: false, type: () => [Genre] })
   genres: Genre[];
 
   @IsArray()
-  @ManyToMany(() => Director)
+  @ManyToMany(() => Director, (director) => director.movies)
   @ApiProperty({ required: false, type: () => [Director] })
   directors: Director[];
+
+  @ManyToOne(() => UserEntity, (user) => user.movies)
+  user: UserEntity;
 }

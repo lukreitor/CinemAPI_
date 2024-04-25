@@ -6,6 +6,7 @@ import { MovieModule } from './movie/movie.module';
 import { UserModule } from './user/user.module';
 import { GenreModule } from './genre/genre.module';
 import { DirectorModule } from './director/director.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,12 +18,14 @@ import { DirectorModule } from './director/director.module';
       password: 'root',
       database: 'movie_catalog',
       autoLoadEntities: true,
+      entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true, // WARNING: Desabilitar em produção!
     }),
     MovieModule,
     UserModule,
     GenreModule,
     DirectorModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
