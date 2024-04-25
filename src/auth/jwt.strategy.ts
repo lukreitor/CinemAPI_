@@ -18,6 +18,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
+  /* The `async validate(payload: JwtPayload): Promise<UserEntity>` method in the `JwtStrategy` class
+  is a function that is used to validate the JWT payload extracted from the incoming request. Here's
+  a breakdown of what it does: */
   async validate(payload: JwtPayload): Promise<UserEntity> {
     const { email } = payload;
     const user = await this.userRepository.findOne({ where: { email } });

@@ -17,6 +17,14 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     super({ passReqToCallback: true });
   }
 
+  /**
+   * The function `authenticate` in TypeScript is used to validate an access token and check the user's
+   * status before granting access.
+   * @param {Request} req - The `req` parameter in the `authenticate` function is typically an object
+   * representing the HTTP request being made. It may contain information such as headers, body,
+   * parameters, and other details of the request. In this case, it seems to be an instance of the
+   * `Request` class, which likely
+   */
   async authenticate(req: Request) {
     try {
       const authorization = req.headers.authorization;
