@@ -8,12 +8,18 @@ export const TypeOrmConfig = () =>
   ({
     type: 'postgres',
     host: process.env.POSTGRES_DB_HOST || 'localhost',
-    port: Number(process.env.POSTGRES_DB_PORT) || 5432,
+    port: Number(process.env.POSTGRES_DB_PORT) || 5433,
     username: process.env.POSTGRES_DB_USER || 'postgres',
     password: process.env.POSTGRES_DB_PASSWORD || 'root',
     database: process.env.POSTGRES_DB_NAME || 'movie_catalog',
-    autoLoadEntities: false,
-    synchronize: false,
+    autoLoadEntities: true,
+    synchronize: true,
     logging: false,
-    entities: [BaseEntity, ProfileEntity, 'dist/src/entities/*.entity.js'],
+    entities: [
+      ProfileEntity,
+      'dist/**/*.entity{.ts,.js}',
+      BaseEntity,
+
+      'dist/src/entities/*.entity.js',
+    ],
   }) as TypeOrmModuleOptions;

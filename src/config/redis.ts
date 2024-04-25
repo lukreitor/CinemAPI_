@@ -1,12 +1,10 @@
-import { Module } from '@nestjs/common';
-import { RedisModule } from 'nestjs-redis';
+import { BullModuleOptions } from '@nestjs/bull';
+import 'dotenv/config';
 
-@Module({
-  imports: [
-    RedisModule.register({
-      url: process.env.REDIS_URL || 'redis://localhost:6379',
-    }),
-  ],
-  exports: [RedisModule],
-})
-export class DatabaseModule {}
+export const RedisConfig = () =>
+  ({
+    redis: {
+      host: process.env.REDIS_DB_HOST || 'localhost',
+      port: Number(process.env.REDIS_DB_PORT) || 6379,
+    },
+  }) as BullModuleOptions;

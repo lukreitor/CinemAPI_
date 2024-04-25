@@ -7,26 +7,21 @@ import { UserModule } from './user/user.module';
 import { GenreModule } from './genre/genre.module';
 import { DirectorModule } from './director/director.module';
 import { AuthModule } from './auth/auth.module';
+import { RedisConfig } from './config/redis';
+import { TypeOrmConfig } from './config/database';
+import { BullModule } from '@nestjs/bull';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5433,
-      username: 'postgres',
-      password: 'root',
-      database: 'movie_catalog',
-      autoLoadEntities: true,
-      entities: ['dist/**/*.entity{.ts,.js}'],
-      synchronize: true, // WARNING: Desabilitar em produção!
-    }),
+    TypeOrmModule.forRoot(TypeOrmConfig()),
+    BullModule.forRoot(RedisConfig()),
     MovieModule,
     UserModule,
     GenreModule,
     DirectorModule,
     AuthModule,
   ],
+
   controllers: [AppController],
   providers: [AppService],
 })
