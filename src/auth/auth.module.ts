@@ -8,6 +8,7 @@ import { UserController } from '../user/user.controller';
 import { JwtAuthGuard } from './auth.guard';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '../user/entities/User.entity';
+import { LoginController } from './controllers/login.controller';
 //import { JwtStrategy } from './jwt.strategy';
 //import { ProfileAccess } from './profiles.auth.service';
 
@@ -27,7 +28,7 @@ import { UserEntity } from '../user/entities/User.entity';
     //JwtStrategy,
     JwtAuthGuard,
   ],
-  controllers: [UserController],
+  controllers: [UserController, LoginController],
   exports: [AuthService, JwtAuthGuard],
 })
 export class AuthModule {}

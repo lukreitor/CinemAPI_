@@ -6,6 +6,7 @@ import { MovieModule } from './movie/movie.module';
 import { UserModule } from './user/user.module';
 import { GenreModule } from './genre/genre.module';
 import { DirectorModule } from './director/director.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { DirectorModule } from './director/director.module';
     UserModule,
     GenreModule,
     DirectorModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

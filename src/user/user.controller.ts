@@ -51,9 +51,4 @@ export class UserController {
   async register(@Body() createUserDto: CreateUserDto) {
     return this.userService.createUser(createUserDto);
   }
-
-  @Post('login')
-  async login(@Req() req) {
-    //return this.authService.login(req.user);
-  }
 }
