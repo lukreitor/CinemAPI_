@@ -4,7 +4,6 @@ import {
   Post,
   Body,
   Patch,
-  Req,
   Param,
   Delete,
   UseGuards,
@@ -14,7 +13,7 @@ import { CreateUserDto } from './dto/create-user-profile.dto';
 import { UpdateUserDto } from './dto/update-user-profile.dto';
 //import { AuthService } from '../auth/auth.service';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation } from '@nestjs/swagger';
 //import { JwtAuthGuard } from 'src/auth/jwt.guard';
 //import { ProfileAccess } from 'src/auth/profiles.auth.service';
 import { ApiTags } from '@nestjs/swagger';
@@ -55,6 +54,9 @@ export class UserController {
 
   @Post('register')
   @ApiBody({ type: CreateUserDto })
+  @ApiOperation({
+    description: 'This endpoint is used for registering a new user.',
+  })
   async register(@Body() createUserDto: CreateUserDto) {
     return this.userService.createUser(createUserDto);
   }

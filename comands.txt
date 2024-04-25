@@ -8,3 +8,5 @@ psql -U postgres -d movie_catalog
 \dt
 
 \d+ <users>
+
+openapi2postmanv2 -s swagger-spec.json -o postman-collection.json

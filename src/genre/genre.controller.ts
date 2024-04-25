@@ -19,6 +19,8 @@ import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 export class GenreController {
   constructor(private readonly genreService: GenreService) {}
 
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @Get('findAll')
   findAll() {
     return this.genreService.findAll();

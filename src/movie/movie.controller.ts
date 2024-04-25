@@ -19,6 +19,8 @@ import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 export class MovieController {
   constructor(private readonly movieService: MovieService) {}
 
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @Get('findAll')
   findAll() {
     return this.movieService.findAll();
@@ -45,9 +47,16 @@ export class MovieController {
     return this.movieService.remove(id);
   }
 
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @Post('create')
   @ApiBody({ type: CreateMovieDto })
   async create(@Body() createMovieDto: CreateMovieDto) {
-    return this.movieService.createMovie(createMovieDto);
+    try {
+      return this.movieService.createMovie(createMovieDto);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 }
