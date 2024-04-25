@@ -14,7 +14,7 @@ import { CreateUserDto } from './dto/create-user-profile.dto';
 import { UpdateUserDto } from './dto/update-user-profile.dto';
 //import { AuthService } from '../auth/auth.service';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiBody } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
 //import { JwtAuthGuard } from 'src/auth/jwt.guard';
 //import { ProfileAccess } from 'src/auth/profiles.auth.service';
 import { ApiTags } from '@nestjs/swagger';
@@ -33,18 +33,21 @@ export class UserController {
   }
 
   @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @Get('FindOne:id')
   findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
   }
 
   @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @Patch('Update:id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @Delete('Remove:id')
   remove(@Param('id') id: string) {
     return this.userService.remove(id);

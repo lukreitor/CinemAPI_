@@ -18,6 +18,7 @@ import { AuthModule } from './auth/auth.module';
       password: 'root',
       database: 'movie_catalog',
       autoLoadEntities: true,
+      entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true, // WARNING: Desabilitar em produção!
     }),
     MovieModule,

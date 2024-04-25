@@ -122,4 +122,8 @@ export class ProfileEntity extends BaseEntity {
   })
   @Column()
   telephone: string;
+
+  @OneToOne(() => UserEntity, (user) => user.profile)
+  @JoinColumn()
+  user: UserEntity;
 }
