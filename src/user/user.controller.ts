@@ -32,6 +32,7 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get('FindOne:id')
   findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
@@ -43,6 +44,7 @@ export class UserController {
     return this.userService.update(id, updateUserDto);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Delete('Remove:id')
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
