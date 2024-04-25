@@ -7,13 +7,13 @@ import { MovieModule } from 'src/movie/movie.module';
 export const TypeOrmConfig = () =>
   ({
     type: 'postgres',
-    host: 'localhost',
-    port: 5433,
-    username: 'postgres',
-    password: 'root',
-    database: 'movie_catalog',
-    autoLoadEntities: true,
-    synchronize: true, // WARNING: Desabilitar em produção!
+    host: process.env.POSTGRES_DB_HOST || 'localhost',
+    port: Number(process.env.POSTGRES_DB_PORT) || 5432,
+    username: process.env.POSTGRES_DB_USER || 'postgres',
+    password: process.env.POSTGRES_DB_PASSWORD || 'root',
+    database: process.env.POSTGRES_DB_NAME || 'movie_catalog',
+    autoLoadEntities: false,
+    synchronize: false,
     logging: false,
     entities: [BaseEntity, ProfileEntity, 'dist/src/entities/*.entity.js'],
   }) as TypeOrmModuleOptions;
